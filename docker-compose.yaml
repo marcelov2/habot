@@ -34,7 +34,7 @@ services:
       context: .
       dockerfile: Dockerfile-Web
     ports:
-      - "80:80"
+      - "8080:80"
     networks:
       - havana
     volumes:
@@ -45,7 +45,7 @@ services:
   mariadb:
     image: "mariadb:latest"
     ports:
-      - "3306:3306"
+      - "3307:3306"
     networks:
       - havana
     environment:
