@@ -26,6 +26,7 @@ services:
     environment:
       <<: *havana-variables
     restart: on-failure
+
   havana-web:
     depends_on: 
       mariadb:
@@ -42,6 +43,7 @@ services:
     environment:
       <<: *havana-variables
     restart: on-failure
+
   mariadb:
     image: "mariadb:latest"
     ports:
@@ -59,6 +61,18 @@ services:
       interval: 10s
       timeout: 5s
       retries: 3
+    restart: on-failure
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - "8081:80"  # Mapeia a porta 8081 do host para a porta 80 do container
+    networks:
+      - havana
+    environment:
+      PMA_HOST: mariadb  # Nome do serviço do MariaDB
+      PMA_USER: havana    # Usuário do MariaDB
+      PMA_PASSWORD: goldfish # Senha do MariaDB
     restart: on-failure
 
 volumes:
